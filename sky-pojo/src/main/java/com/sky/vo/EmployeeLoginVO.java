@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Data
+
+//这个就是用于构建对象的，没什么用，就是高级一点而已
 @Builder
+//下面三个注解就是用于生成构造器和getset方法的
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+//描述一个 Java 类（DTO，实体类等）的作用和属性信息
 @ApiModel(description = "员工登录返回的数据格式")
 public class EmployeeLoginVO implements Serializable {
 

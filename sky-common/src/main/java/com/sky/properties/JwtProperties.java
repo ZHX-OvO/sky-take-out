@@ -4,8 +4,11 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+//添加到spring容器里面
 @Component
+//用于读取springboot的配置文件里面的配置项
 @ConfigurationProperties(prefix = "sky.jwt")
+//这个是给下面这个类写上getset方法
 @Data
 public class JwtProperties {
 

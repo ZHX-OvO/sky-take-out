@@ -19,6 +19,7 @@ public class JwtUtil {
      * @return
      */
     public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
+        //设置字符串的header部分，需要用
         // 指定签名的时候使用的签名算法，也就是header那部分
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -35,6 +36,8 @@ public class JwtUtil {
                 // 设置过期时间
                 .setExpiration(exp);
 
+
+        //返回一个拼接好的token字符串
         return builder.compact();
     }
 
