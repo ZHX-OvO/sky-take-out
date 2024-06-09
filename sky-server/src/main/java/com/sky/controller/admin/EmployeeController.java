@@ -5,7 +5,6 @@ import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
-import com.sky.entity.Test;
 import com.sky.properties.JwtProperties;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
@@ -17,9 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,14 +95,4 @@ public class EmployeeController {
         PageResult pageResult=employeeService.pageQuary(employeePageQueryDTO);
         return Result.success(pageResult);
     }
-
-    @PostMapping("/test")
-    @ApiOperation("测试一下")
-    public void test(@RequestBody Test date)
-    {
-        System.out.println(date);
-        LocalDate now= LocalDate.now();
-        System.out.println(now);
-    }
-
 }
