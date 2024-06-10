@@ -120,4 +120,50 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total,result);
     }
 
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Employee employee=new Employee();
+        employee.setStatus(status);
+        employee.setId(id);
+
+        //数据封装好了，调用mapper对象与数据库交互
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 根据id查找员工
+     * @param id
+     * @return {@link Employee }
+     */
+    @Override
+    public Employee selsectById(Long id) {
+        Employee employee=employeeMapper.selsectById(id);
+        //把密码屏蔽掉
+        employee.setPassword("****");
+        return employee;
+    }
+
+
+    /**
+     * 编辑员工信息
+     * @param employeeDTO
+     */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        Employee employee=new Employee();
+        //对象的属性拷贝
+        BeanUtils.copyProperties(employeeDTO,employee);
+
+        //还得设置一下什么时间修改的，什么人修改的
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.update(employee);
+    }
 }

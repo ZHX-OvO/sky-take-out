@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,6 +88,11 @@ public class EmployeeController {
         return Result.success();
     }
 
+    /**
+     * 分页查询员工
+     * @param employeePageQueryDTO 前端传过来搜索名字，页码，每页多少
+     * @return {@link Result }<{@link PageResult }>
+     */
     @GetMapping("/page")
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
@@ -94,5 +100,41 @@ public class EmployeeController {
         //分页查询的结果封装成这个，这个就是估计的格式
         PageResult pageResult=employeeService.pageQuary(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 启用禁用员工
+     * @param status  路径变量
+     * @param id 想要禁用的员工的id
+     * @return {@link Result }
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工")
+    public Result startOrStop(@PathVariable Integer status, Long id){
+        log.info("启用禁用员工:{},{}",status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+    }
+
+    /**
+     * 根据id查找员工
+     * @param id
+     * @return {@link Result }<{@link Employee }>
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查找员工信息")
+    public Result<Employee> selsectById(@PathVariable Long id){
+        log.info("查找员工信息:{}",id);
+        Employee employee=employeeService.selsectById(id);
+        return Result.success(employee);
+    }
+
+
+    @PutMapping()
+    @ApiOperation("更新员工数据")
+    public Result updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息:{}",employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 }

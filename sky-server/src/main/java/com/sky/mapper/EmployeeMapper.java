@@ -31,4 +31,19 @@ public interface EmployeeMapper {
      * @return {@link Page }<{@link Employee }>
      */
     Page<Employee> pageQuary(EmployeePageQueryDTO employeePageQueryDTO);
+
+
+    /**
+     * 根据方法参数，来更新数据库中的数据
+     * @param employee
+     */
+    void update(Employee employee);
+
+    /**
+     * 根据id查找员工
+     * @param id
+     * @return {@link Employee }
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee selsectById(Long id);
 }
