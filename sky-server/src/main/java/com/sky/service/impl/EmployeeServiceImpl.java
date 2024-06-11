@@ -83,17 +83,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
 
 
+        //下面注释掉是因为有AutoFill这个注释来帮我们干了，给公共字段统一添加上面值
         //设置创建时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        //employee.setCreateTime(LocalDateTime.now());
+        //employee.setUpdateTime(LocalDateTime.now());
 
 
         //设置创建这个用的人和修改这个用户的人
         //TODO
         //这里就是获取threadlocal中的东西
-        long id=BaseContext.getCurrentId();
-        employee.setCreateUser(id);
-        employee.setUpdateUser(id);
+        //long id=BaseContext.getCurrentId();
+        //employee.setCreateUser(id);
+        //employee.setUpdateUser(id);
 
         employeeMapper.insert(employee);
     }
@@ -160,9 +161,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         //对象的属性拷贝
         BeanUtils.copyProperties(employeeDTO,employee);
 
+        //下面注释掉是因为有AutoFill这个注释来帮我们干了，给公共字段统一添加上面值
         //还得设置一下什么时间修改的，什么人修改的
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        //employee.setUpdateTime(LocalDateTime.now());
+        //employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.update(employee);
     }
